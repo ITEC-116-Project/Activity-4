@@ -1,2 +1,2 @@
-import { User } from "./entities/users";
-export declare const AllEntities: (typeof User)[];
+import { WeatherPin } from "./entities/weather.entity";
+export declare const AllEntities: (typeof WeatherPin)[];

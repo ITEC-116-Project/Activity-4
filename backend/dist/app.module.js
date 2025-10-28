@@ -9,8 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_crud_module_1 = require("./modules/user-crud/user-crud.module");
+const database_config_1 = require("./config/database.config");
+const weather_module_1 = require("./modules/weather/weather.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -20,21 +20,8 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
-            typeorm_1.TypeOrmModule.forRootAsync({
-                imports: [config_1.ConfigModule],
-                inject: [config_1.ConfigService],
-                useFactory: (config) => ({
-                    type: 'mysql',
-                    host: config.get('DB_HOST'),
-                    port: config.get('DB_PORT'),
-                    username: config.get('DB_USER'),
-                    password: config.get('DB_PASS'),
-                    database: config.get('DB_NAME'),
-                    autoLoadEntities: true,
-                    synchronize: true,
-                }),
-            }),
-            user_crud_module_1.UserCrudModule,
+            database_config_1.DatabaseConfig,
+            weather_module_1.WeatherModule,
         ],
     })
 ], AppModule);

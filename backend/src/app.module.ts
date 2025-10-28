@@ -1,32 +1,20 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserCrudModule } from './modules/user-crud/user-crud.module';
+import { ConfigModule } from '@nestjs/config';
+import { DatabaseConfig } from './config/database.config'; // ✅ only if you really have this file
+import { WeatherModule } from './modules/weather/weather.module'; // ✅ your weather feature module
 
 @Module({
   imports: [
-    // ✅ Load environment variables
+    // ✅ loads environment variables from .env globally
     ConfigModule.forRoot({
       isGlobal: true,
     }),
 
-    // ✅ Database connection
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'mysql',
-        host: config.get<string>('DB_HOST'),
-        port: config.get<number>('DB_PORT'),
-        username: config.get<string>('DB_USER'),
-        password: config.get<string>('DB_PASS'),
-        database: config.get<string>('DB_NAME'),
-        autoLoadEntities: true, // automatically load entities
-        synchronize: true, // ⚠️ only for dev (creates tables automatically)
-      }),
-    }),
+    // ✅ include your database config (optional, only if you made it)
+    DatabaseConfig,
 
-    UserCrudModule, // ✅ only your existing module
+    // ✅ weather feature (controller + service)
+    WeatherModule,
   ],
 })
 export class AppModule {}

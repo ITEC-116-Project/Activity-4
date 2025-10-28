@@ -1,0 +1,237 @@
+/* --- Global Layout --- */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* ✅ prevent horizontal scroll */
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* --- Background --- */
+.weather-bg {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #0b3d4f 0%, #071f3f 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #071f3f; /* match background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+/* --- Container --- */
+.weather-container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* --- Title --- */
+.weather-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: white;
+}
+
+/* --- Search Input --- */
+.city-input {
+  width: 93%;
+  padding: 14px 18px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+}
+
+.city-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* --- Error Box --- */
+.error-box {
+  background: rgba(255, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 15px 0;
+  font-weight: bold;
+  color: white;
+}
+
+/* --- Weather Card & Welcome Box --- */
+.weather-card,
+.welcome-box {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  margin-top: 15px;
+  color: white;
+}
+
+.weather-card h1 {
+  font-size: 70px;
+  margin: 10px 0;
+}
+
+.globe {
+  font-size: 150px;
+  margin: 0;
+}
+
+.desc {
+  font-size: 22px;
+  text-transform: capitalize;
+}
+
+/* --- Info Grid --- */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 15px;
+}
+
+/* --- Pin Button --- */
+.pin-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(3, 124, 137, 0.5);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pin-btn:hover {
+  background: rgba(3, 124, 137, 0.8);
+}
+
+/* --- Sunrise & Sunset --- */
+.sunrise-sunset {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+/* --- Single Pin Section --- */
+.pinned-list.single {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  width: 100%;
+}
+
+/* --- Pin Bar (same width as search bar) --- */
+.pin-compact {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 93%; /* ✅ matches city-input */
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pin-compact:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* --- Remove Button --- */
+.pin-compact .remove-pin {
+  font-size: 18px;
+  color: #ff6b6b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.pin-compact .remove-pin:hover {
+  color: #ff9c9c;
+}
+
+/* --- Tooltip Styling --- */
+.tooltip {
+  position: relative;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  width: 240px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  text-align: left;
+  border-radius: 10px;
+  padding: 12px;
+  position: absolute;
+  top: 115%;
+  left: 50%;
+  transform: translate(-50%, -10px);
+  z-index: 10;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* --- Show tooltip on hover --- */
+.tooltip:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* --- Tooltip Arrow --- */
+.tooltip-content::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.85) transparent;
+}

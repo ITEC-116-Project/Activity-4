@@ -1,3 +1,3 @@
-import { User } from "./entities/users";
+import { WeatherPin } from "./entities/weather.entity";
 
-export const AllEntities = [User];
+export const AllEntities = [ WeatherPin];
