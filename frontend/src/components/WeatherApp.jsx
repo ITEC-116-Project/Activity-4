@@ -11,9 +11,6 @@ const WeatherApp = () => {
     error,
     fetchWeather,
     handleKeyPress,
-    pin,
-    togglePin,
-    removePin,
   } = useWeather();
 
   return (
@@ -29,36 +26,6 @@ const WeatherApp = () => {
           onChange={(e) => setCity(e.target.value)}
           onKeyPress={handleKeyPress}
         />
-
-        {/* Single Pinned City */}
-        {pin && (
-          <div className="pinned-list single">
-            <div className="pin-compact tooltip">
-              <div>
-                📌 {pin.city}, {pin.country} — {Math.round(pin.temp)}°C
-              </div>
-              <button className="remove-pin" onClick={removePin}>
-                ✖
-              </button>
-
-              {/* Tooltip Details */}
-              <div className="tooltip-content">
-                <div>Condition: {pin.data.weather?.[0]?.description}</div>
-                <div>Feels like: {Math.round(pin.data.main.feels_like)}°C</div>
-                <div>Humidity: {pin.data.main.humidity}%</div>
-                <div>Wind: {pin.data.wind.speed} m/s</div>
-                <div>
-                  Sunrise:{" "}
-                  {new Date(pin.data.sys.sunrise * 1000).toLocaleTimeString()}
-                </div>
-                <div>
-                  Sunset:{" "}
-                  {new Date(pin.data.sys.sunset * 1000).toLocaleTimeString()}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Error Message */}
         {error && <div className="error-box">{error}</div>}
@@ -78,10 +45,6 @@ const WeatherApp = () => {
               <div>💨 Wind: {weather.wind.speed} m/s</div>
               <div>☁️ Clouds: {weather.clouds.all}%</div>
             </div>
-
-            <button className="pin-btn" onClick={() => togglePin(weather)}>
-              {pin && pin.city === weather.name ? "📍 Unpin" : "📌 Pin"}
-            </button>
 
             <div className="sunrise-sunset">
               <div>

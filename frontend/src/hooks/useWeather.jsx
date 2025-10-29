@@ -5,7 +5,6 @@ const useWeather = () => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [pin, setPin] = useState(null); // single pinned city
   const debounce = useRef();
 
   const fetchWeather = async (q) => {
@@ -36,21 +35,6 @@ const useWeather = () => {
 
   const handleKeyPress = (e) => e.key === "Enter" && fetchWeather(city);
 
-  const togglePin = (item) => {
-    if (pin && pin.city.toLowerCase() === item.name.toLowerCase()) {
-      setPin(null); // Unpin if same city
-    } else {
-      setPin({
-        city: item.name,
-        country: item.sys.country,
-        temp: item.main.temp,
-        data: item,
-      });
-    }
-  };
-
-  const removePin = () => setPin(null);
-
   return {
     city,
     setCity,
@@ -59,9 +43,6 @@ const useWeather = () => {
     error,
     fetchWeather,
     handleKeyPress,
-    pin,
-    togglePin,
-    removePin,
   };
 };
 
